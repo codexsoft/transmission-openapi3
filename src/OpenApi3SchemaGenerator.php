@@ -20,7 +20,6 @@ class OpenApi3SchemaGenerator
                 $openApi->paths->addPath($routePath, new PathItem([]));
             }
             $path = $openApi->paths->getPath($routePath);
-            //$path->post->
         }
 
         return $openApi;
