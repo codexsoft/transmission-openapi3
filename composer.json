@@ -1,0 +1,40 @@
+{
+    "name": "codexsoft/transmission-openapi3",
+    "license": "MIT",
+    "description": "OpenApi 3.x documenting tools for CodexSoft Transmission library for building HTTP API",
+    "authors": [
+        {
+            "name": "Dmitriy V Kozubskiy",
+            "email": "kozubsky@inbox.ru",
+            "homepage": "http://codexsoft.ru/",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/codexsoft/transmission-openapi3/issues",
+        "source": "https://github.com/codexsoft/transmission-openapi3"
+    },
+    "require": {
+        "php": "^7.4.0",
+        "ext-json": "*",
+        "symfony/routing": "^5.1",
+        "codexsoft/transmission-schema": "^1",
+        "cebe/php-openapi": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "roave/security-advisories": "dev-master",
+        "codexsoft/composer-local-package-updater": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodexSoft\\Transmission\\OpenApi3\\": ["src/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodexSoft\\Transmission\\OpenApi3\\": ["tests/unit/"],
+            "": ["vendor/"]
+        }
+    }
+}
