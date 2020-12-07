@@ -15,7 +15,7 @@
         "source": "https://github.com/codexsoft/transmission-openapi3"
     },
     "require": {
-        "php": "^7.4.0",
+        "php": "^7.4|^8",
         "ext-json": "*",
         "symfony/routing": "^5.1",
         "codexsoft/transmission-schema": "^1",
