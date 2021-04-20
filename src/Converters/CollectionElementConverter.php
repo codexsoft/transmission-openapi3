@@ -31,7 +31,7 @@ class CollectionElementConverter extends AbstractElementConverter
         }
 
         if ($this->element->getElementSchema() !== null) {
-            if ($this->element->getSchemaSourceClass()) {
+            if ($this->factory->isUseRefs() && $this->element->getSchemaSourceClass()) {
                 $data['items'] = [
                     '$ref' => $this->factory->createRef($this->element->getSchemaSourceClass()),
                 ];
