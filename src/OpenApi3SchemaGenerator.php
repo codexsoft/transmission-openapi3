@@ -18,9 +18,14 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Routing\RouteCollection;
 
+/**
+ * This class is used to generate whole Open API 3 schema JSON file using collection of routes
+ * implementing OpenApi3OperationInterface
+ */
 class OpenApi3SchemaGenerator
 {
     private LoggerInterface $logger;
+    private bool $throwExceptionOnInvalidRouteProvided = false;
 
     public function __construct(?LoggerInterface $logger = null)
     {
@@ -65,12 +70,24 @@ class OpenApi3SchemaGenerator
         foreach ($routes as $routeItem) {
             $endpointClass = $routeItem->getDefault('_controller');
 
-            /** @var OpenApi3OperationInterface $endpointClass */
+            /** @var OpenApi3OperationInterface|string $endpointClass */
+
+            if (!\in_array(
+                OpenApi3OperationInterface::class,
+                \class_implements($endpointClass),
+                true
+            )) {
+                if ($this->throwExceptionOnInvalidRouteProvided) {
+                    throw new \RuntimeException("Provided route of class $endpointClass does not implement interface ".OpenApi3OperationInterface::class);
+                } else {
+                    continue;
+                }
+            }
 
             $parameters = [];
 
             $requestBody = new RequestBody([
-                //'description' => Type::STRING,
+                //"description' => Type::STRING,
                 'content' => [
                     'application/json' => new MediaType([
                         'schema' => (new JsonElement($endpointClass::getOpenApiBodyParametersSchema()))->toOpenApiSchema(),
@@ -143,4 +160,16 @@ class OpenApi3SchemaGenerator
 
         return $openApi;
     }
+
+    /**
+     * @param bool $throwExceptionOnInvalidRouteProvided
+     *
+     * @return OpenApi3SchemaGenerator
+     */
+    public function setThrowExceptionOnInvalidRouteProvided(
+        bool $throwExceptionOnInvalidRouteProvided
+    ): self {
+        $this->throwExceptionOnInvalidRouteProvided = $throwExceptionOnInvalidRouteProvided;
+        return $this;
+}
 }
