@@ -45,8 +45,8 @@ class OpenApiConvertFactory
         }
 
         foreach (\class_parents($elementClass) as $classParent) {
-            if (\array_key_exists($elementClass, $knownConverters)) {
-                return $knownConverters[$elementClass];
+            if (\array_key_exists($classParent, $knownConverters)) {
+                return $knownConverters[$classParent];
             }
         }
 
@@ -77,8 +77,8 @@ class OpenApiConvertFactory
         }
 
         foreach (\class_parents($elementClass) as $classParent) {
-            if (\array_key_exists($elementClass, $knownTypes)) {
-                return $knownTypes[$elementClass];
+            if (\array_key_exists($classParent, $knownTypes)) {
+                return $knownTypes[$classParent];
             }
         }
 
