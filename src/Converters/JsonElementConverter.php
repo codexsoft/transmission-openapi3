@@ -9,8 +9,8 @@ use CodexSoft\Transmission\Schema\Elements\JsonElement;
 class JsonElementConverter extends AbstractElementConverter
 {
     public function __construct(
-        protected JsonElement $element,
-        protected OpenApiConvertFactory $factory
+        JsonElement $element,
+        OpenApiConvertFactory $factory
     )
     {
         parent::__construct($element, $factory);

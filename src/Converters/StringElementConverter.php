@@ -9,8 +9,8 @@ use CodexSoft\Transmission\Schema\Elements\StringElement;
 class StringElementConverter extends ScalarElementConverter
 {
     public function __construct(
-        protected StringElement $element,
-        protected OpenApiConvertFactory $factory
+        StringElement $element,
+        OpenApiConvertFactory $factory
     )
     {
         parent::__construct($element, $factory);

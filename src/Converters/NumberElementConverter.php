@@ -9,8 +9,8 @@ use CodexSoft\Transmission\Schema\Elements\NumberElement;
 class NumberElementConverter extends ScalarElementConverter
 {
     public function __construct(
-        protected NumberElement $element,
-        protected OpenApiConvertFactory $factory
+        NumberElement $element,
+        OpenApiConvertFactory $factory
     )
     {
         parent::__construct($element, $factory);

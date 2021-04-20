@@ -9,8 +9,8 @@ use CodexSoft\Transmission\Schema\Elements\CollectionElement;
 class CollectionElementConverter extends AbstractElementConverter
 {
     public function __construct(
-        protected CollectionElement $element,
-        protected OpenApiConvertFactory $factory
+        CollectionElement $element,
+        OpenApiConvertFactory $factory
     )
     {
         parent::__construct($element, $factory);

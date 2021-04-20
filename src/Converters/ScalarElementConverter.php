@@ -10,8 +10,8 @@ use CodexSoft\Transmission\Schema\Elements\ScalarElement;
 class ScalarElementConverter extends AbstractElementConverter
 {
     public function __construct(
-        protected ScalarElement $element,
-        protected OpenApiConvertFactory $factory
+        ScalarElement $element,
+        OpenApiConvertFactory $factory
     )
     {
         parent::__construct($element, $factory);
