@@ -100,4 +100,15 @@ class OpenApiConvertFactory
     {
         return $this->references;
     }
+
+    /**
+     * @param bool $useRefs
+     *
+     * @return OpenApiConvertFactory
+     */
+    public function setUseRefs(bool $useRefs): OpenApiConvertFactory
+    {
+        $this->useRefs = $useRefs;
+        return $this;
+}
 }
