@@ -4,13 +4,14 @@
 namespace CodexSoft\Transmission\OpenApi3\Converters;
 
 
+use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\StringElement;
 
 class StringElementConverter extends ScalarElementConverter
 {
     public function __construct(
         StringElement $element,
-        OpenApiConvertFactory $factory
+        OpenApi3Generator $factory
     )
     {
         parent::__construct($element, $factory);

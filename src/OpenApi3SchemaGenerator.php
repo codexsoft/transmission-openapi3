@@ -12,7 +12,6 @@ use cebe\openapi\spec\PathItem;
 use cebe\openapi\spec\Paths;
 use cebe\openapi\spec\RequestBody;
 use cebe\openapi\spec\Response;
-use CodexSoft\Transmission\OpenApi3\Converters\OpenApiConvertFactory;
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
 use CodexSoft\Transmission\Schema\Elements\JsonElement;
 use Psr\Log\LoggerInterface;
@@ -68,7 +67,7 @@ class OpenApi3SchemaGenerator
             throw new \Exception('OpenApi is '.\gettype($openApi).' but '.OpenApi::class.'|array|null expected');
         }
 
-        $toOpenApi = new OpenApiConvertFactory();
+        $toOpenApi = new OpenApi3Generator();
 
         foreach ($routes as $routeItem) {
             $endpointClass = $routeItem->getDefault('_controller');
@@ -93,7 +92,6 @@ class OpenApi3SchemaGenerator
                 //"description' => Type::STRING,
                 'content' => [
                     'application/json' => new MediaType([
-                        //'schema' => (new JsonElement($endpointClass::getOpenApiBodyParametersSchema()))->toOpenApiSchema(),
                         'schema' => $toOpenApi->convert(new JsonElement($endpointClass::getOpenApiBodyParametersSchema())),
                     ]),
                 ],
@@ -101,19 +99,19 @@ class OpenApi3SchemaGenerator
             ]);
 
             foreach ($endpointClass::getOpenApiPathParametersSchema() as $key => $element) {
-                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'path');
+                $parameters[$key] = $toOpenApi->toParameter($element, $key, 'path');
             }
 
             foreach ($endpointClass::getOpenApiQueryParametersSchema() as $key => $element) {
-                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'query');
+                $parameters[$key] = $toOpenApi->toParameter($element, $key, 'query');
             }
 
             foreach ($endpointClass::getOpenApiHeaderParametersSchema() as $key => $element) {
-                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'header');
+                $parameters[$key] = $toOpenApi->toParameter($element, $key, 'header');
             }
 
             foreach ($endpointClass::getOpenApiCookieParametersSchema() as $key => $element) {
-                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'cookie');
+                $parameters[$key] = $toOpenApi->toParameter($element, $key, 'cookie');
             }
 
             $routePath = $routeItem->getPath();

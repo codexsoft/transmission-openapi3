@@ -4,13 +4,14 @@
 namespace CodexSoft\Transmission\OpenApi3\Converters;
 
 
+use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
 
 class AbstractElementConverter
 {
     public function __construct(
         protected AbstractElement $element,
-        protected OpenApiConvertFactory $factory
+        protected OpenApi3Generator $factory
     )
     {
     }

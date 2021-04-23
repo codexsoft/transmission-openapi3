@@ -4,13 +4,14 @@
 namespace CodexSoft\Transmission\OpenApi3\Converters;
 
 
+use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\JsonElement;
 
 class JsonElementConverter extends AbstractElementConverter
 {
     public function __construct(
         JsonElement $element,
-        OpenApiConvertFactory $factory
+        OpenApi3Generator $factory
     )
     {
         parent::__construct($element, $factory);

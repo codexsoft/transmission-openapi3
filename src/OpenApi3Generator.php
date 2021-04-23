@@ -1,9 +1,16 @@
 <?php
 
 
-namespace CodexSoft\Transmission\OpenApi3\Converters;
+namespace CodexSoft\Transmission\OpenApi3;
 
 
+use CodexSoft\Transmission\OpenApi3\Converters\AbstractElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\BasicElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\CollectionElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\JsonElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\NumberElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\ScalarElementConverter;
+use CodexSoft\Transmission\OpenApi3\Converters\StringElementConverter;
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
 use CodexSoft\Transmission\Schema\Elements\BasicElement;
 use CodexSoft\Transmission\Schema\Elements\BoolElement;
@@ -14,7 +21,7 @@ use CodexSoft\Transmission\Schema\Elements\NumberElement;
 use CodexSoft\Transmission\Schema\Elements\ScalarElement;
 use CodexSoft\Transmission\Schema\Elements\StringElement;
 
-class OpenApiConvertFactory
+class OpenApi3Generator
 {
     protected array $references = [];
 
@@ -43,7 +50,7 @@ class OpenApiConvertFactory
      *
      * @return array
      */
-    public function toOpenApiParameter(
+    public function toParameter(
         AbstractElement $element,
         string $name,
         ?string $in = null
@@ -137,11 +144,11 @@ class OpenApiConvertFactory
     /**
      * @param bool $useRefs
      *
-     * @return OpenApiConvertFactory
+     * @return OpenApi3Generator
      */
-    public function setUseRefs(bool $useRefs): OpenApiConvertFactory
+    public function setUseRefs(bool $useRefs): OpenApi3Generator
     {
         $this->useRefs = $useRefs;
         return $this;
-}
+    }
 }
