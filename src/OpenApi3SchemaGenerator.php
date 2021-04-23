@@ -69,7 +69,6 @@ class OpenApi3SchemaGenerator
         }
 
         $toOpenApi = new OpenApiConvertFactory();
-        //$toOpenApi->setUseRefs(false);
 
         foreach ($routes as $routeItem) {
             $endpointClass = $routeItem->getDefault('_controller');
@@ -102,22 +101,18 @@ class OpenApi3SchemaGenerator
             ]);
 
             foreach ($endpointClass::getOpenApiPathParametersSchema() as $key => $element) {
-                //$parameters[$key] = $element->toOpenApiParameter($key, 'path');
                 $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'path');
             }
 
             foreach ($endpointClass::getOpenApiQueryParametersSchema() as $key => $element) {
-                //$parameters[$key] = $element->toOpenApiParameter($key, 'query');
                 $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'query');
             }
 
             foreach ($endpointClass::getOpenApiHeaderParametersSchema() as $key => $element) {
-                //$parameters[$key] = $element->toOpenApiParameter($key, 'header');
                 $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'header');
             }
 
             foreach ($endpointClass::getOpenApiCookieParametersSchema() as $key => $element) {
-                //$parameters[$key] = $element->toOpenApiParameter($key, 'cookie');
                 $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'cookie');
             }
 
@@ -137,7 +132,6 @@ class OpenApi3SchemaGenerator
                         'content' => [
                             'application/json' => [
                                 'schema' => $toOpenApi->convert($responsesData),
-                                //'schema' => $responsesData->toOpenApiSchema(),
                             ],
                         ],
                     ]);
