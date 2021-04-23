@@ -7,6 +7,7 @@ namespace CodexSoft\Transmission\OpenApi3\Converters;
 use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\BasicElement;
 
+/** @property BasicElement $element */
 class BasicElementConverter extends AbstractElementConverter
 {
     public function __construct(

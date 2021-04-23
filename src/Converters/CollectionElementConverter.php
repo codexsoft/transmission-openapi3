@@ -7,7 +7,8 @@ namespace CodexSoft\Transmission\OpenApi3\Converters;
 use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\CollectionElement;
 
-class CollectionElementConverter extends AbstractElementConverter
+/** @property CollectionElement $element */
+class CollectionElementConverter extends BasicElementConverter
 {
     public function __construct(
         CollectionElement $element,

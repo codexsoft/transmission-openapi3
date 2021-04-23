@@ -7,7 +7,8 @@ namespace CodexSoft\Transmission\OpenApi3\Converters;
 use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\JsonElement;
 
-class JsonElementConverter extends AbstractElementConverter
+/** @property JsonElement $element */
+class JsonElementConverter extends BasicElementConverter
 {
     public function __construct(
         JsonElement $element,

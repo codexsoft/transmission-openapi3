@@ -8,7 +8,8 @@ use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\BasicElement;
 use CodexSoft\Transmission\Schema\Elements\ScalarElement;
 
-class ScalarElementConverter extends AbstractElementConverter
+/** @property ScalarElement $element */
+class ScalarElementConverter extends BasicElementConverter
 {
     public function __construct(
         ScalarElement $element,

@@ -7,6 +7,7 @@ namespace CodexSoft\Transmission\OpenApi3\Converters;
 use CodexSoft\Transmission\OpenApi3\OpenApi3Generator;
 use CodexSoft\Transmission\Schema\Elements\NumberElement;
 
+/** @property NumberElement $element */
 class NumberElementConverter extends ScalarElementConverter
 {
     public function __construct(
