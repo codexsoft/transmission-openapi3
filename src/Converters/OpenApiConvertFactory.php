@@ -16,7 +16,10 @@ use CodexSoft\Transmission\Schema\Elements\StringElement;
 class OpenApiConvertFactory
 {
     protected array $references = [];
-    protected bool $useRefs = true;
+
+    public function __construct(protected bool $useRefs = false)
+    {
+    }
 
     /**
      * @param string $class
@@ -28,6 +31,34 @@ class OpenApiConvertFactory
     {
         $reflection = new \ReflectionClass($class);
         return '#/components/schemas/'.$reflection->getShortName();
+    }
+
+    /**
+     * Export element to Parameter Object of OpenAPI 3.x
+     *
+     * @param AbstractElement $element
+     * @param string $name a name of parameter
+     * @param string|null $in The location of the parameter. Possible values are "query", "header", "path" or "cookie". If omitted, it won't be added.
+     *
+     * @return array
+     */
+    public function toOpenApiParameter(
+        AbstractElement $element,
+        string $name,
+        ?string $in = null
+    ): array
+    {
+        $data = [
+            'name' => $name,
+            'schema' => $this->convert($element),
+            'required' => $element->isRequired()
+        ];
+
+        if ($in !== null) {
+            $data['in'] = $in;
+        }
+
+        return $data;
     }
 
     protected function findConverterClass(string $elementClass): string

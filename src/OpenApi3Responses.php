@@ -4,6 +4,8 @@
 namespace CodexSoft\Transmission\OpenApi3;
 
 
+use cebe\openapi\spec\Response as OpenApiResponse;
+use CodexSoft\Transmission\OpenApi3\Converters\OpenApiConvertFactory;
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
 
 /**
@@ -11,18 +13,25 @@ use CodexSoft\Transmission\Schema\Elements\AbstractElement;
  */
 class OpenApi3Responses
 {
-    public static function binary(string $description = 'Binary content', array $headers = [], string $contentType = 'application/octet-stream'): \cebe\openapi\spec\Response
+    public static function binary(
+        string $description = 'Binary content',
+        array $headers = [],
+        string $contentType = 'application/octet-stream',
+        ?OpenApiConvertFactory $factory = null,
+    ): OpenApiResponse
     {
+        $factory = $factory ?: new OpenApiConvertFactory();
+
         $headersData = [];
         foreach ($headers as $name => $element) {
             if ($element instanceof AbstractElement) {
-                $headersData[$name] = $element->toOpenApiParameter($name);
+                $headersData[$name] = $factory->toOpenApiParameter($element, $name);
             } else {
                 $headersData[$name] = $element;
             }
         }
 
-        return new \cebe\openapi\spec\Response([
+        return new OpenApiResponse([
             'description' => $description,
             'content' => [
                 $contentType => [

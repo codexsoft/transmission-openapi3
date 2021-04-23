@@ -12,6 +12,7 @@ use cebe\openapi\spec\PathItem;
 use cebe\openapi\spec\Paths;
 use cebe\openapi\spec\RequestBody;
 use cebe\openapi\spec\Response;
+use CodexSoft\Transmission\OpenApi3\Converters\OpenApiConvertFactory;
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
 use CodexSoft\Transmission\Schema\Elements\JsonElement;
 use Psr\Log\LoggerInterface;
@@ -67,6 +68,9 @@ class OpenApi3SchemaGenerator
             throw new \Exception('OpenApi is '.\gettype($openApi).' but '.OpenApi::class.'|array|null expected');
         }
 
+        $toOpenApi = new OpenApiConvertFactory();
+        //$toOpenApi->setUseRefs(false);
+
         foreach ($routes as $routeItem) {
             $endpointClass = $routeItem->getDefault('_controller');
 
@@ -90,26 +94,31 @@ class OpenApi3SchemaGenerator
                 //"description' => Type::STRING,
                 'content' => [
                     'application/json' => new MediaType([
-                        'schema' => (new JsonElement($endpointClass::getOpenApiBodyParametersSchema()))->toOpenApiSchema(),
+                        //'schema' => (new JsonElement($endpointClass::getOpenApiBodyParametersSchema()))->toOpenApiSchema(),
+                        'schema' => $toOpenApi->convert(new JsonElement($endpointClass::getOpenApiBodyParametersSchema())),
                     ]),
                 ],
                 'required' => true,
             ]);
 
             foreach ($endpointClass::getOpenApiPathParametersSchema() as $key => $element) {
-                $parameters[$key] = $element->toOpenApiParameter($key, 'path');
+                //$parameters[$key] = $element->toOpenApiParameter($key, 'path');
+                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'path');
             }
 
             foreach ($endpointClass::getOpenApiQueryParametersSchema() as $key => $element) {
-                $parameters[$key] = $element->toOpenApiParameter($key, 'query');
+                //$parameters[$key] = $element->toOpenApiParameter($key, 'query');
+                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'query');
             }
 
             foreach ($endpointClass::getOpenApiHeaderParametersSchema() as $key => $element) {
-                $parameters[$key] = $element->toOpenApiParameter($key, 'header');
+                //$parameters[$key] = $element->toOpenApiParameter($key, 'header');
+                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'header');
             }
 
             foreach ($endpointClass::getOpenApiCookieParametersSchema() as $key => $element) {
-                $parameters[$key] = $element->toOpenApiParameter($key, 'cookie');
+                //$parameters[$key] = $element->toOpenApiParameter($key, 'cookie');
+                $parameters[$key] = $toOpenApi->toOpenApiParameter($element, $key, 'cookie');
             }
 
             $routePath = $routeItem->getPath();
@@ -127,7 +136,8 @@ class OpenApi3SchemaGenerator
                         'description' => $responsesData->getLabel() ?: 'Default response',
                         'content' => [
                             'application/json' => [
-                                'schema' => $responsesData->toOpenApiSchema(),
+                                'schema' => $toOpenApi->convert($responsesData),
+                                //'schema' => $responsesData->toOpenApiSchema(),
                             ],
                         ],
                     ]);
