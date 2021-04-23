@@ -5,6 +5,7 @@ namespace CodexSoft\Transmission\OpenApi3\Converters;
 
 
 use CodexSoft\Transmission\Schema\Elements\AbstractElement;
+use CodexSoft\Transmission\Schema\Elements\BasicElement;
 use CodexSoft\Transmission\Schema\Elements\BoolElement;
 use CodexSoft\Transmission\Schema\Elements\CollectionElement;
 use CodexSoft\Transmission\Schema\Elements\IntegerElement;
@@ -64,10 +65,11 @@ class OpenApiConvertFactory
     protected function findConverterClass(string $elementClass): string
     {
         $knownConverters = [
+            BasicElement::class => BasicElementConverter::class,
+            ScalarElement::class => ScalarElementConverter::class,
             CollectionElement::class => CollectionElementConverter::class,
             JsonElement::class => JsonElementConverter::class,
             NumberElement::class => NumberElementConverter::class,
-            ScalarElement::class => ScalarElementConverter::class,
             StringElement::class => StringElementConverter::class,
         ];
 

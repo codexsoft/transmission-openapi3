@@ -25,14 +25,6 @@ class AbstractElementConverter
             'deprecated' => $this->element->isDeprecated(),
         ];
 
-        if ($this->element->getExample() !== AbstractElement::UNDEFINED) {
-            $data['example'] = $this->element->getExample();
-        }
-
-        if ($this->element->hasDefaultValue()) {
-            $data['default'] = $this->element->getDefaultValue();
-        }
-
         return $data;
     }
 }
