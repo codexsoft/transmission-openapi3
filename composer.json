@@ -18,7 +18,7 @@
         "php": "^8",
         "ext-json": "*",
         "symfony/routing": "^5.1",
-        "codexsoft/transmission-schema": "*",
+        "codexsoft/transmission-schema": "^2",
         "cebe/php-openapi": "^1.4",
         "psr/log": "^1.1"
     },
